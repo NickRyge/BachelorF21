@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-server-pod
+spec:
+  containers:
+    - image: node-server
+      name: node-server
+      imagePullPolicy: Never
+      resources: {}
+      ports:
+        - containerPort: 8080

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: apitest
+  name: apitest
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: apitest
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: apitest
+    spec:
+      containers:
+      - image: apitest
+        name: apitest
+        imagePullPolicy: Never
+        resources: {}
+        ports:
+          - containerPort: 7000
+status: {}
