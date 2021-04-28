@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap" rel="stylesheet"> 
+    <head>
+		<link rel="stylesheet" type="text/css" href="/css/pagestyle.css">
+		<meta charset="UTF-8">	
+    </head>
+    <body>
+		<div id="field"></div>
+
+		<div id="mydiv">
+			<p>
+			  <img src="https://www.pngjoy.com/pngm/11/326253_hitler-adolf-hitler-full-body-png-download.png" style="width:40px;">
+			</p>
+		  </div>
+    </body>
+</html>
+
+<script>	
+	
+	var playerArray = []
+	var current = [];
+	
+	
+	function getFieldCorner() {
+		return document.getElementById("field").getBoundingClientRect()
+	}
+
+	function getPlayerPosition() {
+		return document.getElementById("mydiv").getBoundingClientRect()
+	}
+
+	function getRelativePosition() {
+			return [getPlayerPosition().x - getFieldCorner().x, getPlayerPosition().y - getFieldCorner().y]
+	}
+
+	function ensureBounds() {
+		ray = getRelativePosition()
+		if (ray[0] < 0 || ray[1] < 0 || ray[0] > getFieldCorner().width || ray[1] > getFieldCorner().height) {
+			return false;
+		} else  {
+			return true;
+		}
+	}
+	
+	function debugPrint() {
+		if (ensureBounds()) {
+			console.log(ray + " <- there you are")
+		} else  {
+			console.log("out of bounds, fucker")
+		}
+	}
+
+	function updateOtherPlayers(someJsonHere) {
+		//For every asshole in playerlist json
+		for (player in someJsonHere) {
+			if (playerArray.includes(id)) {
+					//getElementbyID ( player id ) . set position x and y
+			} else if ( someFuckerLeft ){
+				//Delete the player
+			} else  {
+				//create new element with player ID and set position x and y
+			} 
+		}
+	} 
+
+	function movePlayerTo(x, y) {
+		poopy = document.getElementById("mydiv");
+		poopy.style.top = x + "px";
+		poopy.style.left = y + "px";
+		debugPrint();
+	}
+
+	
+	//Adapted logic from some tutorial on W3Schools
+	dragElement(document.getElementById("mydiv"));
+	function dragElement(elmnt) {
+		var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+		elmnt.onmousedown = dragMouseDown;
+		
+		function dragMouseDown(e) {
+			e = e || window.event;
+			e.preventDefault();
+			pos3 = e.clientX;
+			pos4 = e.clientY;
+			document.onmouseup = closeDragElement;
+			document.onmousemove = elementDrag;
+		}
+		
+		function elementDrag(e) {
+			e = e || window.event;
+			e.preventDefault();
+			pos1 = pos3 - e.clientX;
+			pos2 = pos4 - e.clientY
+			pos3 = e.clientX;
+			pos4 = e.clientY;
+
+			elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+			elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+		}
+		
+		function closeDragElement(e) {
+			/* stop moving when mouse button is released:*/
+			document.onmouseup = null;
+			document.onmousemove = null;
+			debugPrint();
+			if (!ensureBounds()) {
+				movePlayerTo(current[0], current[1])
+			}
+			current = [elmnt.getBoundingClientRect().y, elmnt.getBoundingClientRect().x]
+		}	
+	}
+
+	movePlayerTo(getFieldCorner().height/2, getFieldCorner().width/2);
+	current = [document.getElementById("mydiv").getBoundingClientRect().y, document.getElementById("mydiv").getBoundingClientRect().x];
+</script>	
